@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Géométrie dans l'espace — Maturitný tréner (5e/6e année)</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-badge">5<sup>e</sup>/6<sup>e</sup> année • Bac</span>
+        <div>
+          <h1 id="app-title">Géométrie dans l'espace</h1>
+          <p id="app-subtitle" class="subtitle">Heuristický tréning &amp; Rédaction Bac</p>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button id="btn-ref" class="btn-ghost" onclick="toggleRefModal(true)">📖 Vzorce &amp; Slovníček</button>
+
+        <div class="pill-group" role="group" aria-label="Varianta">
+          <button id="btn-var-A" class="pill active" onclick="switchVariant('A')">Variante A</button>
+          <button id="btn-var-B" class="pill" onclick="switchVariant('B')">Variante B</button>
+        </div>
+
+        <div class="pill-group" role="group" aria-label="Jazyk">
+          <button id="btn-lang-sk" class="pill active" onclick="switchLang('sk')">SK</button>
+          <button id="btn-lang-fr" class="pill" onclick="switchLang('fr')">FR</button>
+        </div>
+
+        <button id="btn-reset" class="btn-ghost" onclick="confirmReset()" title="Reset progresu">↺ Reset</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <section class="card progress-card">
+        <div class="card-header">
+          <h2 id="lbl-roadmap">Cesta k majstrovstvu</h2>
+          <span id="progress-badge" class="badge-score">0 / 8</span>
+        </div>
+        <div class="progress-bar-wrap">
+          <div id="progress-bar" class="progress-bar-fill" style="width: 0%"></div>
+        </div>
+        <ul id="module-list" class="module-list"></ul>
+      </section>
+
+      <section class="card viewer-card">
+        <div class="card-header">
+          <h2 id="lbl-viewer">Interaktívny 3D model</h2>
+          <span class="hint-mini" id="lbl-drag">Ťahaj myšou</span>
+        </div>
+        <canvas id="canvas3d" width="360" height="290"></canvas>
+        <div class="viewer-toggles">
+          <label><input type="checkbox" id="chk-plane" checked onchange="draw3D()"> <span id="lbl-chk-plane">Rovina $(ABC)$</span></label>
+          <label><input type="checkbox" id="chk-normal" checked onchange="draw3D()"> <span id="lbl-chk-normal">Normála $\vec{n}$</span></label>
+          <label><input type="checkbox" id="chk-proj" checked onchange="draw3D()"> <span id="lbl-chk-proj">Priemet $H$</span></label>
+          <label><input type="checkbox" id="chk-extra" onchange="draw3D()"> <span id="lbl-chk-extra">Bod $D$</span></label>
+        </div>
+        <div id="solid-coords" class="coords-box"></div>
+      </section>
+    </aside>
+
+    <section class="workspace">
+      <div id="module-header" class="card module-banner"></div>
+
+      <div class="stepper" id="phase-stepper">
+        <div class="step active" id="step-tab-0"><span class="step-num">1</span> <span id="lbl-step-1">Heuristické objavenie</span></div>
+        <div class="step" id="step-tab-1"><span class="step-num">2</span> <span id="lbl-step-2">Výpočet krok za krokom</span></div>
+        <div class="step" id="step-tab-2"><span class="step-num">3</span> <span id="lbl-step-3">Rédaction (slovný komentár)</span></div>
+      </div>
+
+      <div id="stage-container" class="card stage-card"></div>
+    </section>
+  </main>
+
+  <!-- Reference Modal -->
+  <div id="ref-modal" class="modal-backdrop" onclick="if(event.target===this) toggleRefModal(false)">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2 id="lbl-ref-title">Vzorce a slovníček (Géométrie dans l'espace)</h2>
+        <button class="btn-close" onclick="toggleRefModal(false)">✕</button>
+      </div>
+      <div id="ref-body" class="modal-body"></div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <span id="footer-note">Progres sa automaticky ukladá lokálne v prehliadači.</span>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
